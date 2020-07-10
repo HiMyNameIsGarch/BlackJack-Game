@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackJack</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/icon.png">
+</head>
+
+<body>
+    <div class="container">
+        <!--Title section-->
+        <div class="row">
+            <div class="col-lg-12 ">
+                <h1 class="text-center">BlackJack</h1><br>
+                <section class="text-right">
+                    <button onclick="changeRulesVizibility()">
+                        <img src="images/arrow.png" alt="arrow" id="arrow">
+                    </button>
+                    <button id="refreshBtn" type="button" class="btn btn-dark"
+                        onclick="window.location.reload(true)">Refresh the page</button>
+                </section><br>
+            </div>
+        </div>
+        <!--Rules section-->
+        <div class="row">
+            <div class="col-lg-12 text-center" id="rules">
+                <h4>How to play:</h4>
+                <p>First of all you need to place a <i>bet</i> <b>if you win</b> you double the money,
+                    <b>if
+                        you
+                        lose</b>,
+                    the money is already lost :) <br> After you put some money on the table, you will take your
+                    first
+                    hand
+                    that contains 2 cards (in the
+                    same time will do the dealer, you are playing against). From there you will have a lot of
+                    options to
+                    do based on the cards you have: <br> 1) You can take another random card from the deck; <br> 2)
+                    You
+                    can stay, after that will be the dealer's turn; <br> 3) You can surrender(you will get back half
+                    of
+                    the
+                    bet you placed; <br> 4) If you have the same
+                    cards on the table you can split the cards and double the amount of money(the 2 cards will
+                    become
+                    individual hands to win and individual hands to play)<b>(not included yet)</b>
+                </p>
+                <hr>
+                <h4>How the dealer can play:</h4>
+                <p>He is like you, but with some restrictions: <br>1) If his cards are under 17 he
+                    must draw a card;
+                    <br> 2) If he has 17 points, he must stay; <br> 3) If he is over 17 he can't draw cards anymore,
+                    he
+                    must stay.</p>
+                <hr>
+                <h4>How to win, lose or draw:</h4>
+                <p> 1) You can win if you have 21 points or more points than the
+                    dealer;<br> 2) You can make draw if you and the dealer got the same points;
+                    <br> 3) You can lose if your score is bigger than 21.
+                </p>
+                <section class="text-right">
+                    <h5>Full documentation can be found here:</h5>
+                    <a href="https://bicyclecards.com/how-to-play/blackjack/" target="_blank"
+                        class="btn btn-outline-secondary btn-sm">BlackJack
+                        Documentation</a><br><br>
+                </section><br>
+            </div>
+        </div>
+        <!--Game section-->
+        <div class="row">
+            <div class="col-lg-12 text-center" id="setValues">
+                <!--Dealer's card section-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 id="dealerText">Dealer</h2>
+                        <h4 id="reminder">Before starting the game you need to place a bet and cut the deck (if you
+                            want to):
+                        </h4><br><br>
+                        <ul id="dealerCards">
+                        </ul>
+                    </div>
+                </div>
+                <!--Middle section (status about game and set values) -->
+                <div class="row">
+                    <!--Left card-->
+                    <div class="col-lg-4 maincontainer">
+                        <div class="thecard" id="leftCard">
+                            <div class="thefront text-center">
+                                <h5>Do you wanna cut the deck?</h5>
+                                <h6>Slide to choose the number of cards that will be cutted <br> (0 means no)</h6>
+                                <h5 id="valueCut"></h5>
+                                <input type="range" name="left" id="cutTheDeck"><br>
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="takeValuesSlider(cutTheDeck,leftCard,leftBtn)" id="leftBtn">Submit</button>
+                            </div>
+                            <div class="theback">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Middle card-->
+                    <div class="col-lg-4 maincontainer">
+                        <div class="thecard" id="middleCard">
+                            <div class="thefront text-center" id="playAgain"><br><br>
+                                <section class="centerDiv">
+                                    <h4 id="statusGame"></h4>
+                                    <h4>Wanna play again?</h4>
+                                    <button type="button" class="btn btn-outline-success" id="resetGameBtn"
+                                        onclick="resetGame(resetGameBtn)">Play
+                                        again</button>
+                                </section>
+                            </div>
+                            <div class="theback text-center" id="ace">
+                                <h5>You got an ace! <br> What value this card will have? <br> 1 / 11 </h5>
+                                <input type="range" name="middle" id="aceSlider" max="50" min="0">
+                                <h5 id=aceValue></h5>
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="takeValuesSlider(aceSlider,middleCard,middleBtn)"
+                                    id="middleBtn">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Right card-->
+                    <div class="col-lg-4 maincontainer">
+                        <div class="thecard" id="rightCard">
+                            <div class="thefront text-center">
+                                <br>
+                                <h5 id="betText"></h5>
+                                <h5 id="betValue"></h5>
+                                <input type="range" name="right" id="betPlace" min="0"><br>
+                                <button type="button" class="btn btn-outline-success"
+                                    onclick="takeValuesSlider(betPlace,rightCard, rightBtn)"
+                                    id="rightBtn">Submit</button>
+                            </div>
+                            <div class="theback"><br>
+                                <h4 id="status"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Player's card section-->
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <ul id="playerCards" class="text-center">
+                        </ul>
+                        <section id="buttonsSection">
+                            <button type="button" class="btn btn-primary"
+                                onclick="player.drawAndDisplayCard(deck, playerCards)" id="drawCardBtn">Draw a
+                                card</button>
+                            <button type="button" class="btn btn-danger" onclick="stay()" id="stayBtn">Stay</button>
+                            <button type="button" class="btn btn-info" onclick="surrender(surrBtn)"
+                                id="surrBtn">Surrender</button>
+                        </section>
+                        <h2 id="playerText">Player</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Start Button-->
+        <div class="row">
+            <div class="col-lg-12">
+                <button id="startButton" type="button" class="btn btn-success btn-lg btn-block"
+                    onclick="startGame()">Start
+                    Game</button>
+            </div>
+        </div>
+    </div>
+    <script src="classes.js"></script>
+    <script src="main.js"></script>
+    <script src="slider.js"></script>
+</body>
+
+</html>
