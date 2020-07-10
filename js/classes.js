@@ -75,7 +75,7 @@ class Player {
                 if (this.name == "dealer") dealer.points += modifyAceValue();
                 break;
         }
-        this.cards[lastCard][1].innerHTML = '<img src="deck/backCard.png" id="BackCard" alt="backcard"></img>';
+        this.cards[lastCard][1].innerHTML = '<img src="images/deck/backCard.png" id="BackCard" alt="backcard"></img>';
         this.cards[lastCard][2].innerHTML = this.drawnCards[lastCard].location;
     }
     drawAndDisplayCard(deck, location) {
@@ -108,7 +108,7 @@ class Deck {
     makeDeck() {
         for (let value of this.values.split(',')) {
             for (let suit of this.suits) {
-                this.cards.push({ value, suit, location: `<img src="deck/${value}${suit}.png" alt="card">` });
+                this.cards.push({ value, suit, location: `<img src="images/deck/${value}${suit}.png" alt="card">` });
             }
         }
     }

@@ -156,7 +156,7 @@ function updateStatus(statusGame) {
     }
 }
 const statusText = (dealerPoints = dealer.points) => {
-    return `Your money : ${player.money} <br> Your bet : ${player.bet} <br> Dealer's points : ${dealerPoints} <hr> Your points : ${player.points} `;
+    return `Your money : ${player.money} <br> Your bet : ${player.bet} <br> Your points : ${player.points} <hr> Dealer's points : ${dealerPoints} `;
 }
 function surrender(idBtn) {
     if (typeof (idBtn) == "undefined") return;
