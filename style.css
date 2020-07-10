@@ -1,0 +1,74 @@
+[class*="col-"] {
+    border: 0px solid red;
+    border-collapse: collapse; 
+}
+#buttonsSection, #dealerText, #playerText, #playAgain, #refreshBtn{
+    display: none;
+}
+#dealerCards, #playerCards{
+    padding: 0px;
+}
+button {
+    display: inline-block;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    text-align: right;
+}
+#rules{
+    transform: scaleY(1);
+    height: 620px;
+}
+#setValues {
+    transform: scaleY(0);
+    height: 0px;
+}
+#setValues, #rules{
+    display: block;
+    transform-origin: top;
+    transition: transform 0.8s ease, height 0.8s ease;
+}
+img{
+    width: 130px;
+    height: 200px;   
+}
+.maincontainer{
+    position: relative;
+    width: 130px;
+    height: 200px;  
+    padding: 0px;
+}
+.thecard{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.7s ease-in-out;
+}
+.thefront {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: transparent;
+    color: black;
+    transform: rotateY(0deg);
+}
+.theback{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: transparent;
+    color: black;
+    transform: rotateY(180deg);
+}
+#arrow {
+    width: 60px;
+    height: 35px;
+    transform: rotate(180deg);
+    transition:transform 0.7s ease;
+}
+li {
+    display: inline-table;
+}
