@@ -1,4 +1,8 @@
-class Player {
+var ids = [];
+var randIds = [];
+const classNames = ["maincontainer", "thecard", "thefront", "theback"];
+
+class Participant {
     drawnCards = [];
     cards = [];
     bet = 0;
@@ -73,7 +77,7 @@ class Player {
                 break;
         }
         if (this.name == "dealer" && this.drawnCards.length >= 2) this.points += modifyAceValue();
-        this.cards[lastCard][1].innerHTML = '<img src="images/deck/backCard.png" id="BackCard" alt="backcard"></img>';
+        this.cards[lastCard][1].innerHTML = '<img src="images/deck/backCard.png" alt="backcard"></img>';
         this.cards[lastCard][2].innerHTML = this.drawnCards[lastCard].location;
     }
     drawAndDisplayCard(deck, location) {
@@ -90,36 +94,36 @@ class Player {
         }
     }
 }
-class Deck {
-    cards = [];
-    popedCards = [];
-    suits = ['clubs', 'diamonds', 'hearts', 'spades'];
-    values = '2,3,4,5,6,7,8,9,10,J,Q,K,A';
-    constructor() {
-        this.makeDeck();
+const deck = {
+    cards: [],
+    popedCards: [],
+    suits: ['clubs', 'diamonds', 'hearts', 'spades'],
+    values: '2,3,4,5,6,7,8,9,10,J,Q,K,A',
+    makeDeck() {
+        this.fillDeck();
         this.suffleDeck();
-    }
+    },
     clearCards() {
         this.cards = [];
         this.popedCards = [];
-    }
-    makeDeck() {
+    },
+    fillDeck() {
         for (let value of this.values.split(',')) {
             for (let suit of this.suits) {
                 this.cards.push({ value, suit, location: `<img src="images/deck/${value}${suit}.png" alt="card">` });
             }
         }
-    }
+    },
     drawCard() {
         let drawnCard = this.cards.pop();
         return drawnCard;
-    }
+    },
     suffleDeck() {
-        for (let i = 0; i < this.cards.length; i++) {
-            let j = Math.floor(Math.random() * (i + 1));
-            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+        for (let i = 0; i < this.cards.length; i++) {//loop thru all cards
+            let j = Math.floor(Math.random() * (i + 1));//pick a random card from deck
+            if (i != j) swapCards(i, j);//swap them
         }
-    }
+    },
     cutTheDeck(positionOfCutting) {
         if (positionOfCutting > (this.cards.length - 15)) return;
         for (let i = 0; i < positionOfCutting; i++) {
@@ -128,17 +132,14 @@ class Deck {
         }
     }
 }
-var ids = [];
-var randIds = [];
 
 function CreateTemplateForCards(startPoint) {
     if (typeof (startPoint) === undefined) return;//if the main id is null, do nothing
     if (startPoint.tagName !== "UL") return;//verify if the parent is an ul;
-    let classNames = ["maincontainer", "thecard", "thefront", "theback"];//list with the class names for the blocks
     let cardObj = [];//in that will be stored the actually card with his id's
     let elems = [];
     ids = [];//those are temp lists with ids and elems, every time u run the function they ll be empty
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {//make 4 random id's
         let uniqueId = genUniqueId(100);//generate a random id
         verifyUniqueId(uniqueId);//verify if the number generated is repeating(if yes, pick another one till it's unique)
     }
@@ -180,7 +181,7 @@ function modifyAceValue() {
             if (dealer.points == player.points || dealer.points == 21) {
                 return 0;
             }
-            else if ((dealer.points >= 17 && dealer.points < player.points) || dealer.points > 21) {
+            else if (((dealer.points >= 17 && dealer.points < player.points) || dealer.points > 21) || (player.points > dealer.points) && (player.points < 22)) {
                 return -10;
             }
             return 0;

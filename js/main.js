@@ -4,20 +4,20 @@ var arrowButton = document.getElementById("arrow");
 var setValues = document.getElementById("setValues");
 var playAgain = document.getElementById("playAgain");
 var surrenderBtn = document.getElementById("surrBtn");
-var middleCard = document.getElementById("middleCard");
-var playerCards = document.getElementById("playerCards");
-var dealerCards = document.getElementById("dealerCards");
-var msgList = ["You Won!", "You Lost!", "You got a BlackJack, and you won!", "Dealer's got a BlackJack and you lost!", "It's a draw!"];
+var middleCard = document.getElementById("mCard");
+var playerCards = document.getElementById("pCards");
+var dealerCards = document.getElementById("dCards");
+const msgList = ["You Won!", "You Lost!", "You got a BlackJack, and you won!", "Dealer's got a BlackJack and you lost!", "It's a draw!"];
 const posibleFinishedGame = ["Won", "Lost", "Draw"];
-const posibleStatusGame = ["dealerRound", "inGame"];
+const posibleStatusGame = ["dealerRound", "playerRound"];
 var gameRunning = true;
 var firstMove = false;
 var aceTaken = 0;
 var valuesTaken = 0;
-const deck = new Deck();
-const player = new Player(500, "player");
-const dealer = new Player(0, "dealer");
-delete dealer.money;
+deck.makeDeck();
+const player = new Participant(500, "player");
+const dealer = new Participant(0, "dealer");
+delete dealer.money;//clear the props that the dealer can t have it
 delete dealer.bet;
 
 function changeRulesVizibility() {
@@ -38,7 +38,6 @@ function startGame() {
 }
 function takeValuesSlider(slider, idCard, idBtn) {
     if ((typeof (slider) === "undefined") || (typeof (idCard) === "undefined") || (typeof (idBtn) === "undefined")) return;
-    else if (!(idCard.id.includes(slider.name))) return;
     switch (slider.name) {
         case "left":
             idBtn.disabled = true;
@@ -96,7 +95,7 @@ function putCardsOnTable() {
     valuesTaken++;
     if (valuesTaken === 2) {
         valuesTaken = 0;
-        setValues.style.height = "825px";
+        setValues.style.height = "880px";
         setTimeout(() => {
             document.getElementById("dealerStatus").style.display = "block";
             document.getElementById("playerStatus").style.display = "block";
@@ -156,7 +155,7 @@ function updateStatus(statusGame) {
             break;
     }
 }
-function statusMembers(dealerPoints = dealer.points){
+function statusMembers(dealerPoints = dealer.points) {
     document.getElementById("dealerStatus").innerHTML = `| Points : ${dealerPoints} |`;
     document.getElementById("playerStatus").innerHTML = `| Points : ${player.points} | Bet : ${player.bet} | Money : ${player.money} |`;
 }
@@ -314,7 +313,7 @@ function resetGame(idBtn) {
     deck.clearCards();
     player.clearProps();
     dealer.clearProps();
-    deck.makeDeck();
+    deck.fillDeck();
     deck.suffleDeck();
     updateSlider();
     ace.style.display = "none";

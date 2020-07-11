@@ -5,7 +5,7 @@
 #buttonsSection, #dealerText, #playerText, #playAgain, #refreshBtn{
     display: none;
 }
-#dealerCards, #playerCards{
+#dCards, #pCards{
     padding: 0px;
 }
 button {
