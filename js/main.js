@@ -2,7 +2,6 @@ var ace = document.getElementById("ace");
 var rules = document.getElementById('rules');
 var arrowButton = document.getElementById("arrow");
 var setValues = document.getElementById("setValues");
-var statusPoints = document.getElementById("status");
 var playAgain = document.getElementById("playAgain");
 var surrenderBtn = document.getElementById("surrBtn");
 var middleCard = document.getElementById("middleCard");
@@ -77,7 +76,6 @@ function takeValuesSlider(slider, idCard, idBtn) {
             if (slider.value > 0) {
                 idBtn.disabled = true;
                 player.placeBet(slider.value);
-                updateStatus(posibleStatusGame[0]);
                 rotateCard(idCard);
                 putCardsOnTable();
                 break;
@@ -100,6 +98,9 @@ function putCardsOnTable() {
         valuesTaken = 0;
         setValues.style.height = "825px";
         setTimeout(() => {
+            document.getElementById("dealerStatus").style.display = "block";
+            document.getElementById("playerStatus").style.display = "block";
+            updateStatus(posibleStatusGame[0]);
             disableButtons(true, true, true);
             changeLayout("block", "block", "block", "none");
             player.drawAndDisplayCard(deck, playerCards);
@@ -126,13 +127,13 @@ function updateStatus(statusGame) {
     if (typeof (statusGame) == "undefined") return;
     switch (statusGame) {
         case posibleStatusGame[0]:
-            statusPoints.innerHTML = statusText();
+            statusMembers();
             break;
         case posibleStatusGame[1]:
             let dealerLastCard;
             if (dealer.points == 21) {
                 dealerLastCard = 21;
-                statusPoints.innerHTML = statusText(dealerLastCard);
+                statusMembers(dealerLastCard);
             }
             else if (dealer.drawnCards.length <= 2) {
                 switch (dealer.drawnCards[0].value) {
@@ -148,15 +149,16 @@ function updateStatus(statusGame) {
                         dealerLastCard = dealer.drawnCards[0].value;
                         break;
                 }
-                statusPoints.innerHTML = statusText(dealerLastCard);
+                statusMembers(dealerLastCard);
             }
             break;
         default:
             break;
     }
 }
-const statusText = (dealerPoints = dealer.points) => {
-    return `Your money : ${player.money} <br> Your bet : ${player.bet} <br> Your points : ${player.points} <hr> Dealer's points : ${dealerPoints} `;
+function statusMembers(dealerPoints = dealer.points){
+    document.getElementById("dealerStatus").innerHTML = `| Points : ${dealerPoints} |`;
+    document.getElementById("playerStatus").innerHTML = `| Points : ${player.points} | Bet : ${player.bet} | Money : ${player.money} |`;
 }
 function surrender(idBtn) {
     if (typeof (idBtn) == "undefined") return;
@@ -232,7 +234,9 @@ function gameStatus(status, msg) {
             }, 720);
             break;
         case posibleFinishedGame[1]:
-            updateStatus(posibleStatusGame[(dealer.drawnCards.length == 2) ? 1 : 0]);
+            setTimeout(() => {
+                updateStatus(posibleStatusGame[(player.points > 21) ? 1 : 0]);
+            }, 720);
             break;
         case posibleFinishedGame[2]:
             player.money += (player.bet % 2 == 0) ? player.bet / 2 : (player.bet - 1) / 2;
@@ -297,6 +301,8 @@ function resetGame(idBtn) {
     if (player.money == 0) {
         document.getElementById("reminder").innerHTML = "You don't have any money to bet, please refresh the page"
         document.getElementById("cutTheDeck").disabled = true;
+        document.getElementById("dealerStatus").style.display = "none";
+        document.getElementById("playerStatus").style.display = "none";
         document.getElementById("leftBtn").disabled = true;
         document.getElementById("rightBtn").disabled = true;
         if (middleCard.style.transform != "") rotateCard(middleCard);
@@ -316,6 +322,8 @@ function resetGame(idBtn) {
     setTimeout(() => {
         gameRunning = true;
         updateInterface();
+        document.getElementById("dealerStatus").style.display = "none";
+        document.getElementById("playerStatus").style.display = "none";
         document.getElementById("leftBtn").disabled = false;
         document.getElementById("rightBtn").disabled = false;
         playAgain.style.display = "none";
