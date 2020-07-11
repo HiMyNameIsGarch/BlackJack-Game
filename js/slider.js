@@ -4,9 +4,9 @@ aceSlider.value = 0;
 aceValue.innerHTML = 1;
 aceSlider.oninput = function () { (this.value < 25) ? aceValue.innerHTML = "1" : aceValue.innerHTML = "11" }
 
-var placeBet = document.getElementById("betPlace");
-var betText = document.getElementById("betText");
-var betValue = document.getElementById("betValue");
+var placeBet = document.getElementById("bPlace");
+var betText = document.getElementById("bText");
+var betValue = document.getElementById("bValue");
 const infoText = () => {
     return `You have ${player.money} money <br> How much do you want to bet?`
 };

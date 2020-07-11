@@ -71,7 +71,7 @@
             </div>
         </div>
         <!--Game section-->
-        <div class="row">
+        <div class="row ">
             <div class="col-lg-12 text-center" id="setValues">
                 <!--Dealer's card section-->
                 <div class="row">
@@ -81,7 +81,7 @@
                         <h4 id="reminder">Before starting the game you need to place a bet and cut the deck (if you
                             want to):
                         </h4><br><br>
-                        <ul id="dealerCards">
+                        <ul id="dCards">
                         </ul>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                         <div class="thecard" id="leftCard">
                             <div class="thefront text-center">
                                 <h5>Do you wanna cut the deck?</h5>
-                                <h6>Slide to choose the number of cards that will be cutted <br> (0 means no)</h6>
+                                <h6>Slide to choose the number of cards that will be cutted (0 means no)</h6>
                                 <h5 id="valueCut"></h5>
                                 <input type="range" name="left" id="cutTheDeck"><br>
                                 <button type="button" class="btn btn-outline-success"
@@ -104,7 +104,7 @@
                     </div>
                     <!--Middle card-->
                     <div class="col-lg-4 maincontainer">
-                        <div class="thecard" id="middleCard">
+                        <div class="thecard" id="mCard">
                             <div class="thefront text-center" id="playAgain"><br><br>
                                 <section class="centerDiv">
                                     <h5 id="statusGame"></h5>
@@ -119,8 +119,7 @@
                                 <input type="range" name="middle" id="aceSlider" max="50" min="0">
                                 <h5 id=aceValue></h5>
                                 <button type="button" class="btn btn-outline-success"
-                                    onclick="takeValuesSlider(aceSlider,middleCard,middleBtn)"
-                                    id="middleBtn">Submit</button>
+                                    onclick="takeValuesSlider(aceSlider,mCard,middleBtn)" id="middleBtn">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -129,12 +128,11 @@
                         <div class="thecard" id="rightCard">
                             <div class="thefront text-center">
                                 <br>
-                                <h5 id="betText"></h5>
-                                <h5 id="betValue"></h5>
-                                <input type="range" name="right" id="betPlace" min="0"><br>
+                                <h5 id="bText"></h5>
+                                <h5 id="bValue"></h5>
+                                <input type="range" name="right" id="bPlace" min="0"><br>
                                 <button type="button" class="btn btn-outline-success"
-                                    onclick="takeValuesSlider(betPlace,rightCard, rightBtn)"
-                                    id="rightBtn">Submit</button>
+                                    onclick="takeValuesSlider(bPlace,rightCard, rightBtn)" id="rightBtn">Submit</button>
                             </div>
                             <div class="theback">
                             </div>
@@ -144,7 +142,7 @@
                 <!--Player's card section-->
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <ul id="playerCards" class="text-center">
+                        <ul id="pCards" class="text-center">
                         </ul>
                         <h5 id="playerStatus"> </h5>
                         <section id="buttonsSection">
