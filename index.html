@@ -76,7 +76,8 @@
                 <!--Dealer's card section-->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h2 id="dealerText">Dealer</h2>
+                        <h3 id="dealerText">Dealer</h3>
+                        <h5 id="dealerStatus"> </h5>
                         <h4 id="reminder">Before starting the game you need to place a bet and cut the deck (if you
                             want to):
                         </h4><br><br>
@@ -106,8 +107,8 @@
                         <div class="thecard" id="middleCard">
                             <div class="thefront text-center" id="playAgain"><br><br>
                                 <section class="centerDiv">
-                                    <h4 id="statusGame"></h4>
-                                    <h4>Wanna play again?</h4>
+                                    <h5 id="statusGame"></h5>
+                                    <h5>Wanna play again?</h5>
                                     <button type="button" class="btn btn-outline-success" id="resetGameBtn"
                                         onclick="resetGame(resetGameBtn)">Play
                                         again</button>
@@ -135,8 +136,7 @@
                                     onclick="takeValuesSlider(betPlace,rightCard, rightBtn)"
                                     id="rightBtn">Submit</button>
                             </div>
-                            <div class="theback"><br>
-                                <h4 id="status"></h4>
+                            <div class="theback">
                             </div>
                         </div>
                     </div>
@@ -146,6 +146,7 @@
                     <div class="col-lg-12 text-center">
                         <ul id="playerCards" class="text-center">
                         </ul>
+                        <h5 id="playerStatus"> </h5>
                         <section id="buttonsSection">
                             <button type="button" class="btn btn-primary"
                                 onclick="player.drawAndDisplayCard(deck, playerCards)" id="drawCardBtn">Draw a
@@ -154,7 +155,7 @@
                             <button type="button" class="btn btn-info" onclick="surrender(surrBtn)"
                                 id="surrBtn">Surrender</button>
                         </section>
-                        <h2 id="playerText">Player</h2>
+                        <h3 id="playerText">Player</h3>
                     </div>
                 </div>
             </div>

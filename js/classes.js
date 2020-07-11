@@ -48,8 +48,8 @@ class Player {
         switch (this.drawnCards[lastCard].value) {
             case "A":
                 if (this.name == "player") {
-                    if (player.drawnCards.length == 2) {
-                        if (player.drawnCards[0].value == player.drawnCards[1].value) break;
+                    if (this.drawnCards.length == 2) {
+                        if (this.drawnCards[0].value == this.drawnCards[1].value) break;
                     }
                     setTimeout(() => {
                         gameRunning = false;
@@ -60,21 +60,19 @@ class Player {
                     }, 720);
                 }
                 else {
-                    dealer.points += 11;
-                    if (dealer.drawnCards.length >= 2) dealer.points += modifyAceValue();
+                    this.points += 11;
                 }
                 break;
             case "K":
             case "J":
             case "Q":
                 this.points += 10;
-                if (this.name == "dealer") dealer.points += modifyAceValue();
                 break;
             default:
                 this.points += Number(this.drawnCards[lastCard].value);
-                if (this.name == "dealer") dealer.points += modifyAceValue();
                 break;
         }
+        if (this.name == "dealer" && this.drawnCards.length >= 2) this.points += modifyAceValue();
         this.cards[lastCard][1].innerHTML = '<img src="images/deck/backCard.png" id="BackCard" alt="backcard"></img>';
         this.cards[lastCard][2].innerHTML = this.drawnCards[lastCard].location;
     }
@@ -87,7 +85,7 @@ class Player {
             setTimeout(() => {
                 gameRunning = true;
                 rotateCard(this.cards[this.cards.length - 1][0]);
-                if (this.name == "player") verifyPlayerPoints();
+                if (this.name == "player" && this.drawnCards.length > 2) verifyPlayerPoints();
             }, 720);
         }
     }
@@ -187,7 +185,7 @@ function modifyAceValue() {
             }
             return 0;
         }
-        else if (isNaN(dealer.getValueOfAce())) {//when you got 2 ace's, the funtion will return NaM
+        else if (dealer.getValueOfAce() == 0) {
             return -10;
         }
         return 0;
